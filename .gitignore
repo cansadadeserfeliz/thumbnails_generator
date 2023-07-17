@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtualenv
+venv/
+
+# IDEs
+.vscode/
+.idea/
+temp/
+workspace.code-workspace

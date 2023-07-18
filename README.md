@@ -2,6 +2,8 @@
 
 ## Installation
 
+For OSX:
+
 ```
 brew install freetype imagemagick
 ```

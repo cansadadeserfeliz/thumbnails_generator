@@ -12,10 +12,11 @@ MAX_WIDTH = 240
 
 
 def generate_thumbnail(filename: str):
+    print(f'--- generate_thumbnail for {filename} ---')
     source_file_path = SOURCE_FOLDER / filename
     thumbnail_file_path = THUMBNAILS_FOLDER / filename
 
-    if filename.endswith('.jpg'):
+    if filename.endswith('.jpg') or filename.endswith('.png') or filename.endswith('.tiff'):
         # Resize the image using ImageMagick.
         with Image(filename=source_file_path) as image:
             height = image.height
@@ -36,4 +37,5 @@ def generate_thumbnail(filename: str):
 
 
 if __name__ == '__main__':
-    generate_thumbnail(filename='sample.jpg')
+    for file in SOURCE_FOLDER.iterdir():
+        generate_thumbnail(filename=file.name)

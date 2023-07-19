@@ -8,8 +8,9 @@ BASE_DIR = Path('.')
 SOURCE_FOLDER = BASE_DIR / 'source'
 THUMBNAILS_FOLDER = BASE_DIR / 'thumbnails'
 
-MAX_HEIGHT = 135
-MAX_WIDTH = 240
+# Use 2x of the thumbnail size to avoid image pixelation
+MAX_HEIGHT = 135 * 2
+MAX_WIDTH = 240 * 2
 
 
 def generate_thumbnail(filename: str):

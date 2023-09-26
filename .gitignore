@@ -5,6 +5,7 @@
 
 # Generated thumbnails
 thumbnails/
+pdf_images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

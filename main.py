@@ -2,7 +2,7 @@ import mimetypes
 from pathlib import Path
 
 from wand.image import Image
-from pdf2image import convert_from_bytes
+import fitz  # imports the pymupdf library
 
 BASE_DIR = Path('.')
 
@@ -54,10 +54,12 @@ def generate_thumbnail(filename: str):
 
 def pdf_to_images(filename: str):
     source_file_path = PDFS_SOURCE_FOLDER / filename
-    with open(source_file_path, 'rb') as pdf:
-        images = convert_from_bytes(pdf.read(), fmt='jpeg')
-        for i, image in enumerate(images):
-            image.save(PDF_IMAGES_FOLDER / f'{i}.jpeg')
+    with fitz.open(open(source_file_path, 'rb')) as pdf:
+        for idx, page in enumerate(pdf, start=1):
+            pix = page.get_pixmap()
+            the_page_bytes = pix.pil_tobytes(format='JPEG')
+            with open(PDF_IMAGES_FOLDER / f'{idx}.jpeg', "wb") as outf:
+                outf.write(the_page_bytes)
 
 
 if __name__ == '__main__':
@@ -70,3 +72,8 @@ if __name__ == '__main__':
     # Convert PDF to images
     pdf_filename = 'sample_pdf_10_pages.pdf'
     pdf_to_images(filename=pdf_filename)
+
+    pdf_filename = 'password-protected-sample-123456.pdf'
+    pdf_to_images(filename=pdf_filename)
+
+    pdf_filename = 'corrupt_file.pdf'
